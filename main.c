@@ -1,18 +1,28 @@
 #include "./includes/nm.h"
 
+/*
+** stroff is the
+** string table offset
+** within the symtab_command struct 
+	
+** symbol table
+** array = (void *)ptr + symoff;
+*/
+
 void print_output(int nsyms, int symoff, int stroff, char *ptr)
 {
 	int i;
 	char *stringtable;
 	struct nlist_64 *array;
 
-	// symbol table
 	array = (void *)ptr + symoff;
 	stringtable = (void *)ptr + stroff;
-	for (i = 0; i < nsyms; ++i)
+	i = 0;
+	while (i < nsyms)
 	{
-		printf("->  %s\n", stringtable + array[i].n_type);
-		printf("--->  %s\n", stringtable + array[i].n_un.n_strx);
+		// printf("->  %s\n", stringtable + array[i].n_type);
+		printf("---> %s\n", stringtable + array[i].n_un.n_strx);
+		++i;
 	}
 }
 
