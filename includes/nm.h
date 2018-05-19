@@ -9,7 +9,7 @@
 
 typedef struct			s_symbols
 {
-	long int			adr_value;
+	long int			value;
 	char				type;
 	char				*name;
 	struct s_symbols	*next;
@@ -30,5 +30,15 @@ typedef struct 			s_lsection
 }						t_lsection;
 
 t_lsection *get_sections(char *ptr);
+void add_symbols(char *strable, struct nlist_64 list, t_lsection *sec_list, t_symbols **sym_list);
+void ft_nm(char *ptr);
+void handle_64(char *ptr);
+
+
+/*
+Testing functions
+*/
+
+void print_symbols(t_symbols *sym_list);
 
 #endif
