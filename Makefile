@@ -5,8 +5,9 @@ endif
 CC = gcc
 FLAGS = -g -Wall -Wextra -Werror -I includes
 LIBFT = libft/libft.a
-NAME = nm
+NAME = ft_nm
 SRC = main.c \
+	get_sections.c \
 
 
 OBJ = $(addsuffix .o, $(basename $(SRC)))
@@ -30,7 +31,7 @@ clean:
 fclean: clean
 	@echo "delete $(NAME)"
 	@rm -f $(NAME)
-	@rm -rf nm.dSYM
+	@rm -rf ft_nm.dSYM
 	@make fclean -C libft/
 
 re: fclean all

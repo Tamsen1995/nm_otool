@@ -7,5 +7,28 @@
 
 #include "./libft.h"
 
+typedef struct			s_symbols
+{
+	long int			adr_value;
+	char				type;
+	char				*name;
+	struct s_symbols	*next;
+	struct s_symbols	*prev;
+}						t_symbols;
+
+typedef struct 			s_section
+{
+	char				*name;
+	unsigned int 		nb;
+	struct s_section	*next;
+}						t_section;
+
+typedef struct 			s_lsection
+{
+	struct s_section	*first;
+	struct s_section	*last;
+}						t_lsection;
+
+t_lsection *get_sections(char *ptr);
 
 #endif
