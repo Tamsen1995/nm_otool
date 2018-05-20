@@ -40,5 +40,6 @@ Testing functions
 */
 
 void print_symbols(t_symbols *sym_list);
+void print_syms_prev(t_symbols *sym_list);
 
 #endif
