@@ -1,4 +1,4 @@
-#include "./includes/nm.h"
+#include "../includes/nm.h"
 
 void print_output(int nsyms, int symoff, int stroff, char *ptr)
 {

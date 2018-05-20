@@ -6,12 +6,12 @@ CC = gcc
 FLAGS = -g -Wall -Wextra -Werror -I includes
 LIBFT = libft/libft.a
 NAME = ft_nm
-SRC = main.c \
-	get_sections.c \
-	symbol_ops.c \
-	ft_nm.c \
-	handle_64.c \
-	testing/print_symbols.c \
+SRC = src/main.c \
+	src/get_sections.c \
+	src/symbol_ops.c \
+	src/ft_nm.c \
+	src/handle_64.c \
+	src/testing/print_symbols.c \
 
 
 OBJ = $(addsuffix .o, $(basename $(SRC)))

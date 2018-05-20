@@ -1,4 +1,4 @@
-#include "./includes/nm.h"
+#include "../includes/nm.h"
 
 /*
 ** gets rid of all duplicate symbol values as well as the stab values

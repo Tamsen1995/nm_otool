@@ -1,4 +1,4 @@
-#include "./includes/nm.h"
+#include "../includes/nm.h"
 
 /*
 ** Will add a section element to the end of the section list
