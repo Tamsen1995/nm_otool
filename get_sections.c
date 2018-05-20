@@ -1,5 +1,17 @@
 #include "./includes/nm.h"
 
+/*
+** Will add a section element to the end of the section list
+** This list is used to determine the type of an element
+** of the type N_SECT
+*/
+
+void		add_to_list(char *sectname, t_lsection *list)
+{
+	ft_putendl(sectname); // TESTING
+	list = NULL;
+}
+
 void		add_seg(struct load_command *lc, t_lsection *list)
 {
 	unsigned int i;
@@ -9,14 +21,9 @@ void		add_seg(struct load_command *lc, t_lsection *list)
 	i = 0;
 	seg = (struct segment_command_64 *)lc;
 	sec = (struct section_64 *)(seg + sizeof(seg) / sizeof(void *));
-	list = NULL; // TESTING
-//	ft_putnbr(seg->nsects); // TESTING
 	while (i < seg->nsects)
 	{
-		// TODO : make a function which will add
-			// sec->sectname's into the t_lsection *list
-	//	ft_putendl(sec->sectname); // TESTING
-		
+		add_to_list(sec->sectname, list);
 		sec = (struct section_64 *)((void *)sec + sizeof(struct section_64));
 		i++;
 	}
