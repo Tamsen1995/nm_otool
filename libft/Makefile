@@ -67,6 +67,8 @@ OBJ = $(addsuffix .o, $(basename $(SRC)))
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@make -C printf
+	@gcc $(FLAGS) -I printf/includes -c $(SRC)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 
