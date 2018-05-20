@@ -6,13 +6,38 @@
 ** of the type N_SECT
 */
 
-void		add_to_list(char *sectname, t_lsection *list)
+void push_back(t_lsection *list, t_section *add)
 {
-	ft_putendl(sectname); // TESTING
-	list = NULL;
+	t_section *tmp;
+
+	tmp = list->first;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = add;
+	add->nb = tmp->nb + 1;
+	list->last = add;
 }
 
-void		add_seg(struct load_command *lc, t_lsection *list)
+void add_to_list(char *sectname, t_lsection *list)
+{
+
+	t_section *add;
+
+	if ((add = (t_section *)malloc(sizeof(t_section))) == NULL)
+		return;
+	add->next = NULL;
+	add->name = ft_strdup(sectname);
+	if (!list->first)
+	{
+		add->nb = 1;
+		list->first = add;
+		list->last = add;
+	}
+	else
+		push_back(list, add);
+}
+
+void add_seg(struct load_command *lc, t_lsection *list)
 {
 	unsigned int i;
 	struct segment_command_64 *seg;
@@ -36,19 +61,21 @@ t_lsection *get_sections(char *ptr)
 	struct load_command *lc;
 	unsigned int i;
 
+	if (!(list = (t_lsection *)malloc(sizeof(t_lsection))))
+		return (NULL);
+
 	i = 0;
-	list = NULL;
+	list->first = NULL;
+	list->last = NULL;
 	header = (struct mach_header_64 *)ptr;
 	lc = (void *)ptr + sizeof(*header);
 	while (i < header->ncmds)
 	{
-		i++;
-
 		if (lc->cmd == LC_SEGMENT_64)
 		{
 			add_seg(lc, list);
-			//ft_putendl("Segment has been found."); // TESTING
 		}
+		i++;
 		lc = (void *)lc + lc->cmdsize;
 	}
 	return (list);

@@ -1,5 +1,45 @@
 #include "./includes/nm.h"
 
+/*
+** gets rid of all duplicate symbol values as well as the stab values
+** (symbols of type z)
+*/
+
+void del_dupl_nd_stabs(t_symbols *sym_list)
+{
+	t_symbols *tmp;
+	t_symbols *tmp2;
+
+	tmp2 = NULL;
+	tmp = sym_list;
+	while (tmp)
+	{
+		if ((tmp->type == 'z' || tmp->type == 'Z') ||
+			(tmp->next && tmp->value && tmp->value == tmp->next->value))
+		{
+
+			if (tmp->type != 'z' && tmp->type != 'Z' && tmp->type == '?')
+				tmp = tmp->next;
+
+			// tmp at THIS point should be the item to be deleted.
+
+			
+
+
+			// if the item is not of type z then that must mean it is a duplicate.
+			// in that case we delete it from the list
+				// point tmp2 towards the item after the item to be deleted
+				// point the next of the previous current item towards tmp2
+				// adjust previous pointers
+				// free the tmp
+
+			ft_putendl("this is to be deleted"); // TESTING
+			ft_putendl(tmp->name);				 // TESTING
+		}
+		tmp = tmp->next;
+	}
+}
+
 void process_symtab(struct symtab_command *sym, char *ptr, t_lsection *sec_list)
 {
 
@@ -19,11 +59,8 @@ void process_symtab(struct symtab_command *sym, char *ptr, t_lsection *sec_list)
 			add_symbols(strtable, list[i], sec_list, &sym_list);
 		i++;
 	}
-
-	
-	print_symbols(sym_list); // TESTING
-
-	exit(0); // TESTING
+	del_dupl_nd_stabs(sym_list);
+	print_symbols(sym_list);
 }
 
 void handle_64(char *ptr)
@@ -44,18 +81,8 @@ void handle_64(char *ptr)
 	{
 		if (lc->cmd == LC_SYMTAB)
 		{
-			// TODO : Put all the symbols and their types into
-			// a linked list
-
-			// if there is a symtab command
-			// point the sym pointer to it.
 			sym = (struct symtab_command *)lc;
-			// TODO: A function which will take the sym table and
-			// extract all the symbols' names as well as types
 			process_symtab(sym, ptr, sec_list);
-
-			//print_output(sym->nsyms, sym->symoff, sym->stroff, ptr); // subject to deletion
-
 			break;
 		}
 		i++;
