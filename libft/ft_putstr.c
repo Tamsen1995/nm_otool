@@ -17,7 +17,7 @@ static	void		my_putchar(char c)
 	write(1, &c, 1);
 }
 
-void				ft_putstr(char const *s)
+int				ft_putstr(char const *s)
 {
 	int i;
 
@@ -27,4 +27,5 @@ void				ft_putstr(char const *s)
 		my_putchar(s[i]);
 		i++;
 	}
+	return (1);
 }

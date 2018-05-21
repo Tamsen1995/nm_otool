@@ -67,6 +67,8 @@ OBJ = $(addsuffix .o, $(basename $(SRC)))
 all: $(NAME)
 
 $(NAME): $(OBJ)
+	@make -C printf
+	@gcc $(FLAGS) -I printf/includes -c $(SRC)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 
@@ -74,9 +76,12 @@ $(NAME): $(OBJ)
 	clang $(FLAG) -c $< -o $@
 
 clean:
+	@make -C printf clean
 	rm -f $(OBJ)
 
+
 fclean: clean
+	@make -C printf fclean
 	rm -f $(NAME)
 
 re: fclean all

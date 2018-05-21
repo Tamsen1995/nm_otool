@@ -28,6 +28,8 @@
 # include <mach-o/loader.h>
 # include <mach-o/nlist.h>
 # include <fcntl.h>
+# include "../libft/printf/includes/libftprintf.h"
+
 
 # define T_BOOL int
 # define TRUE 1
@@ -130,7 +132,6 @@ void				ft_strdel(char **as);
 void				ft_bzero(void *s, size_t n);
 void				ft_strlclr(char *s);
 void				ft_putchar(char c);
-void				ft_putstr(char const *s);
 void				ft_putendl(char const *s);
 void				ft_putnbr(int n);
 void				ft_putnbrn(int n);
