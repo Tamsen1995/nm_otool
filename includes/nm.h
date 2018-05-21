@@ -33,6 +33,7 @@ t_lsection *get_sections(char *ptr);
 void add_symbols(char *strable, struct nlist_64 list, t_lsection *sec_list, t_symbols **sym_list);
 void ft_nm(char *ptr);
 void handle_64(char *ptr);
+void add_before(t_symbols *add_bef_this, t_symbols *add);
 
 
 /*
