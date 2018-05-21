@@ -4,6 +4,7 @@ endif
 
 CC = gcc
 FLAGS = -g -Wall -Wextra -Werror -I includes
+PRINTF = libft/printf/libftprintf.a
 LIBFT = libft/libft.a
 NAME = ft_nm
 SRC = src/main.c \
@@ -24,7 +25,7 @@ $(LIBFT):
 
 $(NAME):$(LIBFT) $(NAME) $(OBJ)
 	@echo "building binary file"
-	$(CC) $(FLAGS) $(SRC) -o $(NAME) -I -lft $(LIBFT)
+	$(CC) $(FLAGS) $(SRC) -o $(NAME) -I -lft $(LIBFT) $(PRINTF)
 
 %.o: %.c ft_ls.h
 		clang $(FLAG) -c $< -o $@

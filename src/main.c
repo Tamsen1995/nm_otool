@@ -30,6 +30,8 @@ int main(int ac, char **av)
 	char *ptr;
 	struct stat buf;
 
+
+	ft_printf("FUCKER");
 	if (ac != 2)
 		fatal("Please give me an argument !\n");
 	if ((fd = open(av[1], O_RDONLY)) < 0)
