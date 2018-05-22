@@ -1,22 +1,5 @@
 #include "../includes/nm.h"
 
-void print_output(int nsyms, int symoff, int stroff, char *ptr)
-{
-	int i;
-	char *stringtable;
-	struct nlist_64 *array;
-
-	array = (void *)ptr + symoff;
-	stringtable = (void *)ptr + stroff;
-	i = 0;
-	while (i < nsyms)
-	{
-		//	printf("->  %u\n", array[i].n_type);
-		printf("%s\n", stringtable + array[i].n_un.n_strx);
-		++i;
-	}
-}
-
 /*
 ** Flow:
 ** Read file

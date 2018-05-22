@@ -7,7 +7,11 @@ void print_symbols(t_symbols *sym_list)
 	tmp = sym_list;
 	while (tmp)
 	{
-		ft_printf("%ap %c %s\n", tmp->value, tmp->type, tmp->name);
+		if (tmp->value != 0)
+			ft_printf("%ap ", tmp->value);
+		else
+			ft_putstr("\t\t ");
+		ft_printf("%c %s\n", tmp->type, tmp->name);
 		tmp = tmp->next;
 	}
 
