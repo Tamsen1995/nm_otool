@@ -82,16 +82,17 @@ void add_symbols(char *strtable,
 	tmp = (*sym_list);
 	ret = NULL;
 	add = new_symbol(strtable, list, sec_list);
-	if (!tmp)
+	if (!(*sym_list))
 		(*sym_list) = add;
 	else
 	{
-		tmp = (*sym_list);
 		while (tmp->next)
 		{
 			if (ft_strcmp(tmp->name, add->name) > 0)
 			{
-				add_before(tmp, add);
+				ret = add_before(tmp, add);
+				if (ret)	
+					(*sym_list) = ret;
 				return ;
 			}
 			tmp = tmp->next;
@@ -102,5 +103,4 @@ void add_symbols(char *strtable,
 			tmp->next->prev = tmp;
 		}
 	}
-	//exit (0); // TESTING
 }
