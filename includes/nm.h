@@ -5,7 +5,10 @@
 #define ANON MAP_PRIVATE | MAP_ANONYMOUS
 //# define BLOCK_SIZE sizeof(struct s_block)
 
-#include "./libft.h"
+# include "./libft.h"
+# include <mach-o/loader.h>
+# include <mach-o/nlist.h>
+# include <mach-o/fat.h>
 
 typedef struct			s_symbols
 {
@@ -34,7 +37,7 @@ void add_symbols(char *strable, struct nlist_64 list, t_lsection *sec_list, t_sy
 void ft_nm(char *ptr);
 void handle_64(char *ptr);
 t_symbols *add_before(t_symbols *add_bef_this, t_symbols *add);
-
+uint32_t	swap_uint32(uint32_t val);
 
 /*
 Testing functions

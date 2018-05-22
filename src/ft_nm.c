@@ -1,5 +1,13 @@
 #include "../includes/nm.h"
 
+
+void handle_fat(char *ptr)
+{
+	
+
+
+}
+
 void ft_nm(char *ptr)
 {
 	unsigned int magic_number;
@@ -12,6 +20,9 @@ void ft_nm(char *ptr)
 		handle_64(ptr);
 	else if (magic_number == MH_CIGAM_64)
 		printf("Logic to swap bytes. (Little endian)"); // TODO : Implement
+	else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM)
+		handle_fat(ptr);
+
 
 	// TODO : Handle fat binaries
 	// several architectures.
