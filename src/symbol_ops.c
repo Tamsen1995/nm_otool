@@ -77,19 +77,30 @@ void add_symbols(char *strtable,
 {
 	t_symbols *tmp;
 	t_symbols *add;
+	t_symbols *ret;
 
 	tmp = (*sym_list);
+	ret = NULL;
 	add = new_symbol(strtable, list, sec_list);
-	if (!tmp)
-	{
+	if (!(*sym_list))
 		(*sym_list) = add;
-	}
 	else
 	{
-		tmp = (*sym_list);
 		while (tmp->next)
+		{
+			if (ft_strcmp(tmp->name, add->name) > 0)
+			{
+				ret = add_before(tmp, add);
+				if (ret)	
+					(*sym_list) = ret;
+				return ;
+			}
 			tmp = tmp->next;
-		tmp->next = add;
-		tmp->next->prev = tmp;
+		}
+		if (!tmp->next)
+		{
+			tmp->next = add;
+			tmp->next->prev = tmp;
+		}
 	}
 }
