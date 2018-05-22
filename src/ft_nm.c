@@ -3,6 +3,13 @@
 
 void handle_fat(char *ptr)
 {
+	struct fat_header *fat;
+	uint32_t num_of_structs;
+
+
+	fat = (void *)ptr;
+	num_of_structs = swap_uint32(num_of_structs);
+
 	
 
 
