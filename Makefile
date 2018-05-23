@@ -12,9 +12,12 @@ SRC = src/main.c \
 	src/symbol_ops.c \
 	src/ft_nm.c \
 	src/handle_64.c \
+	src/handle_fat.c \
 	src/symbol_adding.c \
+	src/swap_bytes.c \
 	src/testing/print_symbols.c \
 	src/testing/print_syms_prev.c \
+
 
 
 OBJ = $(addsuffix .o, $(basename $(SRC)))
