@@ -15,6 +15,7 @@ SRC = src/main.c \
 	src/handle_fat.c \
 	src/symbol_adding.c \
 	src/swap_bytes.c \
+	src/sorting_algs.c \
 	src/testing/print_symbols.c \
 	src/testing/print_syms_prev.c \
 
