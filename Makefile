@@ -8,16 +8,18 @@ PRINTF = libft/printf/libftprintf.a
 LIBFT = libft/libft.a
 NAME = ft_nm
 SRC = src/main.c \
-	src/symbol_ops.c \
+	src/det_type.c \
 	src/ft_nm.c \
 	src/handle_fat.c \
 	src/symbol_adding.c \
 	src/swap_bytes.c \
 	src/sorting_algs.c \
+	src/nm/add_to_list.c \
 	src/nm/case_64/get_sections_64.c \
 	src/nm/case_64/handle_64.c \
-	src/nm/add_seg.c \
-	src/nm/process_symtab.c \
+	src/nm/case_64/process_symtab.c \
+	src/nm/case_64/add_symbols_64.c \
+	src/nm/del_symbols.c \
 	src/testing/print_symbols.c \
 	src/testing/print_syms_prev.c \
 

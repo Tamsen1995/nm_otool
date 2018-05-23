@@ -37,19 +37,3 @@ void add_to_list(char *sectname, t_lsection *list)
 		push_back(list, add);
 }
 
-void add_seg(struct load_command *lc, t_lsection *list)
-{
-	unsigned int i;
-	struct segment_command_64 *seg;
-	struct section_64 *sec;
-
-	i = 0;
-	seg = (struct segment_command_64 *)lc;
-	sec = (struct section_64 *)(seg + sizeof(seg) / sizeof(void *));
-	while (i < seg->nsects)
-	{
-		add_to_list(sec->sectname, list);
-		sec = (struct section_64 *)((void *)sec + sizeof(struct section_64));
-		i++;
-	}
-}

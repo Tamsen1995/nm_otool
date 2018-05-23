@@ -34,18 +34,24 @@ typedef struct 			s_lsection
 
 
 void ft_nm(char *ptr);
+char determine_type(uint32_t type, uint32_t n_sect, t_lsection *sec_list, int addr);
+
 void handle_64(char *ptr);
 t_lsection *get_sections_64(char *ptr);
+void process_symtab_64(struct symtab_command *sym, char *ptr, t_lsection *sec_list);
+void add_symbols_64(char *strable, struct nlist_64 list, t_lsection *sec_list, t_symbols **sym_list);
+
+
 
 void handle_fat(char *ptr);
 
-void add_seg(struct load_command *lc, t_lsection *list);
-void process_symtab(struct symtab_command *sym, char *ptr, t_lsection *sec_list);
-void add_symbols(char *strable, struct nlist_64 list, t_lsection *sec_list, t_symbols **sym_list);
+void add_to_list(char *sectname, t_lsection *list);
+
 
 t_symbols *add_before(t_symbols *add_bef_this, t_symbols *add);
 uint32_t swap_uint32(uint32_t val);
 t_symbols *bubble_sort(t_symbols *sym_list);
+t_symbols *del_dupl_nd_stabs(t_symbols *sym_list);
 
 /*
 Testing functions
