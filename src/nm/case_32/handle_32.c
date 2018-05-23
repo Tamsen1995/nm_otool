@@ -13,13 +13,13 @@ void handle_32(char *ptr)
 	ncmds = header->ncmds;
 	i = 0;
 	lc = (void *)ptr + sizeof(*header);
-	sec_list = get_sections(ptr);
+	sec_list = get_sections_32(ptr);
 	while (i < ncmds)
 	{
 		if (lc->cmd == LC_SYMTAB)
 		{
 			sym = (struct symtab_command *)lc;
-			process_symtab(sym, ptr, sec_list);
+			process_symtab_32(sym, ptr, sec_list);
 			break;
 		}
 		i++;

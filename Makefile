@@ -17,8 +17,12 @@ SRC = src/main.c \
 	src/nm/add_to_list.c \
 	src/nm/case_64/get_sections_64.c \
 	src/nm/case_64/handle_64.c \
-	src/nm/case_64/process_symtab.c \
+	src/nm/case_64/process_symtab_64.c \
 	src/nm/case_64/add_symbols_64.c \
+	src/nm/case_32/get_sections_32.c \
+	src/nm/case_32/handle_32.c \
+	src/nm/case_32/process_symtab_32.c \
+	src/nm/case_32/add_symbols_32.c \
 	src/nm/del_symbols.c \
 	src/testing/print_symbols.c \
 	src/testing/print_syms_prev.c \
