@@ -1,4 +1,4 @@
-#include "../includes/nm.h"
+#include "../../includes/nm.h"
 
 /*
 ** Will add a section element to the end of the section list
@@ -52,29 +52,4 @@ void add_seg(struct load_command *lc, t_lsection *list)
 		sec = (struct section_64 *)((void *)sec + sizeof(struct section_64));
 		i++;
 	}
-}
-
-t_lsection *get_sections(char *ptr)
-{
-	t_lsection *list;
-	struct mach_header_64 *header;
-	struct load_command *lc;
-	unsigned int i;
-
-	if (!(list = (t_lsection *)malloc(sizeof(t_lsection))))
-		return (NULL);
-
-	i = 0;
-	list->first = NULL;
-	list->last = NULL;
-	header = (struct mach_header_64 *)ptr;
-	lc = (void *)ptr + sizeof(*header);
-	while (i < header->ncmds)
-	{
-		if (lc->cmd == LC_SEGMENT_64)
-			add_seg(lc, list);
-		i++;
-		lc = (void *)lc + lc->cmdsize;
-	}
-	return (list);
 }

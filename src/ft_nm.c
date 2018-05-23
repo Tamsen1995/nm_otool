@@ -6,6 +6,9 @@ void ft_nm(char *ptr)
 
 	magic_number = *(int *)ptr;
 	// the magic number indicates the type of header we're looking at
+	// if (magic_number == MH_MAGIC)
+	// 	handle_32(ptr);
+	// else
 	if (magic_number == MH_MAGIC_64)
 		handle_64(ptr);
 	else if (magic_number == MH_CIGAM_64)

@@ -1,4 +1,4 @@
-#include "../includes/nm.h"
+#include "../../includes/nm.h"
 
 /*
 ** gets rid of all duplicate symbol values as well as the stab values
@@ -18,7 +18,6 @@ t_symbols *del_dupl_nd_stabs(t_symbols *sym_list)
 		{
 			if (tmp->type != 'z' && tmp->type != 'Z' && tmp->type == '?')
 				tmp = tmp->next;
-			// tmp at THIS point should be the item to be deleted.
 			tmp2 = tmp->next;
 			if (tmp2)
 				tmp2->prev = tmp->prev;
@@ -34,6 +33,7 @@ t_symbols *del_dupl_nd_stabs(t_symbols *sym_list)
 	return (sym_list);
 }
 
+// can use for both
 void process_symtab(struct symtab_command *sym, char *ptr, t_lsection *sec_list)
 {
 
@@ -56,31 +56,4 @@ void process_symtab(struct symtab_command *sym, char *ptr, t_lsection *sec_list)
 	sym_list = del_dupl_nd_stabs(sym_list);
 	sym_list = bubble_sort(sym_list);
 	print_symbols(sym_list);
-}
-
-void handle_64(char *ptr)
-{
-	int ncmds;
-	int i;
-	struct mach_header_64 *header;
-	struct load_command *lc;
-	struct symtab_command *sym;
-	t_lsection *sec_list;
-
-	header = (struct mach_header_64 *)ptr;
-	ncmds = header->ncmds;
-	i = 0;
-	lc = (void *)ptr + sizeof(*header);
-	sec_list = get_sections(ptr);
-	while (i < ncmds)
-	{
-		if (lc->cmd == LC_SYMTAB)
-		{
-			sym = (struct symtab_command *)lc;
-			process_symtab(sym, ptr, sec_list);
-			break;
-		}
-		i++;
-		lc = (void *)lc + lc->cmdsize;
-	}
 }
