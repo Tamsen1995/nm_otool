@@ -91,7 +91,7 @@ void add_symbols(char *strtable,
 			if (ft_strcmp(tmp->name, add->name) > 0)
 			{
 				ret = add_before(tmp, add);
-				if (ret)	
+				if (ret)
 					(*sym_list) = ret;
 				return ;
 			}

@@ -54,6 +54,7 @@ void process_symtab(struct symtab_command *sym, char *ptr, t_lsection *sec_list)
 		i++;
 	}
 	sym_list = del_dupl_nd_stabs(sym_list);
+	sym_list = bubble_sort(sym_list);
 	print_symbols(sym_list);
 }
 

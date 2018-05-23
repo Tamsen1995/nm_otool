@@ -5,6 +5,8 @@ void print_symbols(t_symbols *sym_list)
 	t_symbols *tmp;
 
 	tmp = sym_list;
+	if (!tmp)
+		fatal("No symbols found in (print_symbols)");
 	while (tmp)
 	{
 		if (tmp->value != 0)

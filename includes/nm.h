@@ -38,7 +38,8 @@ void ft_nm(char *ptr);
 void handle_64(char *ptr);
 void handle_fat(char *ptr);
 t_symbols *add_before(t_symbols *add_bef_this, t_symbols *add);
-uint32_t	swap_uint32(uint32_t val);
+uint32_t swap_uint32(uint32_t val);
+t_symbols *bubble_sort(t_symbols *sym_list);
 
 /*
 Testing functions
