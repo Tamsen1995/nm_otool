@@ -3,16 +3,30 @@
 
 void handle_fat(char *ptr)
 {
+	uint32_t i;
+	uint32_t offset;
 	struct fat_header *fat;
-	uint32_t num_of_structs;
+	struct fat_arch *arch;
 
-
+	i = 0;
 	fat = (void *)ptr;
-	num_of_structs = swap_uint32(num_of_structs);
+	arch = (void *)ptr + sizeof(fat);
+	while (i < swap_uint32(fat->nfat_arch))
+	{
+		if (swap_uint32(arch->cputype) == CPU_TYPE_X86_64 \
+			|| swap_uint32(arch->cputype) == CPU_TYPE_X86)
+			offset = arch->offset;
+		arch += sizeof(arch) / sizeof(void *);
+		i++;
+	}
 
-	
+	printf("\nthe offset is : %u\n", swap_uint32(offset)); // TESTING
 
+	//CPU_TYPE_X86_64
+	//CPU_TYPE_X86
+	// These are the cpu types we're looking for.
 
+	exit (0); // TESTING
 }
 
 void ft_nm(char *ptr)
