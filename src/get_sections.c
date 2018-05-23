@@ -72,9 +72,7 @@ t_lsection *get_sections(char *ptr)
 	while (i < header->ncmds)
 	{
 		if (lc->cmd == LC_SEGMENT_64)
-		{
 			add_seg(lc, list);
-		}
 		i++;
 		lc = (void *)lc + lc->cmdsize;
 	}

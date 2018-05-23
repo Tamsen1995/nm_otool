@@ -1,6 +1,5 @@
 #include "../includes/nm.h"
 
-
 void handle_fat(char *ptr)
 {
 	uint32_t i;
@@ -15,36 +14,23 @@ void handle_fat(char *ptr)
 	{
 		if (swap_uint32(arch->cputype) == CPU_TYPE_X86_64 \
 			|| swap_uint32(arch->cputype) == CPU_TYPE_X86)
-			offset = arch->offset;
+			offset = swap_uint32(arch->offset);
 		arch += sizeof(arch) / sizeof(void *);
 		i++;
 	}
-
-	printf("\nthe offset is : %u\n", swap_uint32(offset)); // TESTING
-
-	//CPU_TYPE_X86_64
-	//CPU_TYPE_X86
-	// These are the cpu types we're looking for.
-
-	exit (0); // TESTING
+	ft_nm(ptr + offset);
 }
 
 void ft_nm(char *ptr)
 {
 	unsigned int magic_number;
 
-	// the magic number is at the head of the mach-o header
 	magic_number = *(int *)ptr;
-
-	// the magic number indicates the architecture
+	// the magic number indicates the type of header we're looking at
 	if (magic_number == MH_MAGIC_64)
 		handle_64(ptr);
 	else if (magic_number == MH_CIGAM_64)
-		printf("Logic to swap bytes. (Little endian)"); // TODO : Implement
+		ft_printf("Logic to swap bytes. (Little endian)"); // TODO : Implement
 	else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM)
 		handle_fat(ptr);
-
-
-	// TODO : Handle fat binaries
-	// several architectures.
 }
