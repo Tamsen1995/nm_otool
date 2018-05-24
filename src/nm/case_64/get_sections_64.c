@@ -26,7 +26,6 @@ t_lsection *get_sections_64(char *ptr)
 
 	if (!(list = (t_lsection *)malloc(sizeof(t_lsection))))
 		return (NULL);
-
 	i = 0;
 	list->first = NULL;
 	list->last = NULL;

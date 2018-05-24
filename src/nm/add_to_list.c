@@ -18,6 +18,12 @@ void push_back(t_lsection *list, t_section *add)
 	list->last = add;
 }
 
+
+// TODO :
+// Add attributes of the sections to the list
+// which are needed for the otool
+// sec->size
+// sec->offset
 void add_to_list(char *sectname, t_lsection *list)
 {
 
