@@ -19,7 +19,7 @@ void handle_64(char *ptr)
 		if (lc->cmd == LC_SYMTAB)
 		{
 			sym = (struct symtab_command *)lc;
-			process_symtab(sym, ptr, sec_list);
+			process_symtab_64(sym, ptr, sec_list);
 			break;
 		}
 		i++;
