@@ -81,6 +81,7 @@ fclean: clean
 	@rm -f $(NAME_nm)
 	@rm -f $(NAME_ot)
 	@rm -rf ft_nm.dSYM
+	@rm -rf ft_otool.dSYM
 	@make fclean -C libft/
 
 re: fclean all
