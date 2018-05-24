@@ -1,4 +1,4 @@
-#include "../includes/nm.h"
+#include "../../includes/nm.h"
 
 char type_in_sects(t_lsection *sec_list, uint32_t n_sect)
 {

@@ -4,13 +4,13 @@ FLAGS = -g -Wall -Wextra -Werror -I includes
 PRINTF = libft/printf/libftprintf.a
 LIBFT = libft/libft.a
 NAME_nm = ft_nm
-SRC_nm = src/main.c \
-	src/det_type.c \
-	src/ft_nm.c \
-	src/handle_fat.c \
+SRC_nm = src/handle_fat.c \
 	src/symbol_adding.c \
 	src/swap_bytes.c \
 	src/sorting_algs.c \
+	src/nm/main_nm.c \
+	src/nm/det_type.c \
+	src/nm/ft_nm.c \
 	src/nm/add_to_list.c \
 	src/nm/print_symbols.c \
 	src/nm/case_64/get_sections_64.c \
