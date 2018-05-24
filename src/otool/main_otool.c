@@ -1,30 +1,43 @@
 #include "../../includes/nm.h"
 
-void otool_64(char *ptr)
+void process_sects_64(struct load_command *lc)
 {
-	t_lsection *sec_list;
-	t_section *tmp; // TESTING
+	struct segment_command_64 *seg;
+	struct section_64 *sec;
+	uint32_t i;
 
-	sec_list = get_sections_64(ptr);
-	tmp = sec_list->first;
-	//////////////////////
-	while (tmp)
+	i = 0;
+	seg = (struct segment_command_64 *)lc;
+	sec = (struct section_64 *)((char *)seg + sizeof(struct segment_command_64));
+	while (i < seg->nsects)
 	{
-		ft_printf("\n%s\n", tmp->name);
-		tmp = tmp->next;
+		ft_putendl("One section"); // TESTING
+		i++;
 	}
 
-
-
-	////////////////
-
+	// so if I code this well I should be able to get out all the section names
 
 
 
+}
+
+void otool_64(char *ptr)
+{
+	uint32_t i;
+	struct load_command *lc;
+	struct mach_header_64 *header;
+
+	i = 0;
+	lc = (void *)ptr + sizeof(struct mach_header_64);
+	header = (struct mach_header_64 *)ptr;
+	while (i < header->ncmds)
+	{
+		if (lc->cmd == LC_SEGMENT_64)
+			process_sects_64(lc);
+		lc += lc->cmdsize / sizeof(void *);
+		i++;
+	}
 	exit(0); // TESTING
-
-
-
 }
 
 void ft_otool(char *ptr)
