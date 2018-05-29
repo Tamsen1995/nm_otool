@@ -12,41 +12,66 @@ void process_sects_64(struct load_command *lc)
 	while (i < seg->nsects)
 	{
 
-		ft_putendl(sec->sectname); // TESTING
+		ft_putendl(sec->sectname);			   // TESTING
 		ft_printf("\n%d\n", (int)sec->offset); // TESTING
 		sec = (struct section_64 *)((void *)sec + sizeof(struct section_64));
 		i++;
 	}
 
 	// so if I code this well I should be able to get out all the section names
-
 }
 
-
 /*
-** iterates through the segments of the
-** LCs.
-** then passes each segment to a function where
-** its sections can be worked with.
-** (segments are made of sections)
+** a funtion which will take the lc and then iterate over all the lcs in order to find
+** the lc_segments
+** once found , it passes the lc_segment into the appropiate function to get a list
 */
 
-void otool_64(char *ptr)
+void find_lc_segments(struct load_command *lc, char *ptr, T_BOOL is_64)
 {
-	uint32_t i;
-	struct load_command *lc;
 	struct mach_header_64 *header;
 
-	i = 0;
-	lc = (void *)ptr + sizeof(struct mach_header_64);
-	header = (struct mach_header_64 *)ptr;
-	while (i < header->ncmds)
-	{
-		if (lc->cmd == LC_SEGMENT_64)
-			process_sects_64(lc);
-		lc += lc->cmdsize / sizeof(void *);
-		i++;
-	}
+	if (is_64)
+		header = (struct mach_header_64 *)ptr;
+	else
+		header = header = (struct mach_header *)ptr;
+
+	// while (i < header->ncmds && is_64 == TRUE)
+	// {
+	// 	if (lc->cmd == LC_SEGMENT_64)
+	// 		process_sects(lc);
+	// 	lc += lc->cmdsize / sizeof(void *);
+	// 	i++;
+	// }
+
+	// while (i < header->ncmds && is_64 == TRUE)
+	// {
+	// 	if (lc->cmd == LC_SEGMENT_64)
+	// 		process_sects(lc);
+	// 	lc += lc->cmdsize / sizeof(void *);
+	// 	i++;
+	// }
+
+	// TODO : FINISH THIS FUNCTION
+}
+
+/*
+** passes the file ptr into the appropiate function
+** so that a section list can be made.
+*/
+
+t_section_list *make_sec_list(char *ptr, T_BOOL is_64)
+{
+	struct load_command *lc;
+	t_section_list *sec_list;
+
+	if (is_64)
+		lc = (void *)ptr + sizeof(struct mach_header_64);
+	else
+		lc = (void *)ptr + sizeof(struct mach_header);
+	find_lc_segments(lc, ptr, is_64);
+	return (sec_list);
+
 	exit(0); // TESTING
 }
 
@@ -62,8 +87,9 @@ void ft_otool(char *ptr)
 
 	magic_number = *(int *)ptr;
 	if (magic_number == MH_MAGIC_64)
-		otool_64(ptr);
-
+		make_sec_list(ptr, TRUE);
+	else if (magic_number == MH_MAGIC)
+		make_sec_list(ptr, FALSE);
 }
 
 /*
