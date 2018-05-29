@@ -11,15 +11,25 @@ void process_sects_64(struct load_command *lc)
 	sec = (struct section_64 *)((char *)seg + sizeof(struct segment_command_64));
 	while (i < seg->nsects)
 	{
-		ft_putendl("One section"); // TESTING
+
+		ft_putendl(sec->sectname); // TESTING
+		ft_printf("\n%d\n", (int)sec->offset); // TESTING
+		sec = (struct section_64 *)((void *)sec + sizeof(struct section_64));
 		i++;
 	}
 
 	// so if I code this well I should be able to get out all the section names
 
-
-
 }
+
+
+/*
+** iterates through the segments of the
+** LCs.
+** then passes each segment to a function where
+** its sections can be worked with.
+** (segments are made of sections)
+*/
 
 void otool_64(char *ptr)
 {
@@ -40,6 +50,12 @@ void otool_64(char *ptr)
 	exit(0); // TESTING
 }
 
+/*
+** checking for the magic number
+** and redirecting the flow into the proper
+** case
+*/
+
 void ft_otool(char *ptr)
 {
 	unsigned int magic_number;
@@ -49,6 +65,11 @@ void ft_otool(char *ptr)
 		otool_64(ptr);
 
 }
+
+/*
+** opens the file and scans it into memory
+** then passes it on into the otool flow
+*/
 
 int main(int ac, char **av)
 {

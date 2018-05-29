@@ -26,11 +26,31 @@ typedef struct 			s_section
 	struct s_section	*next;
 }						t_section;
 
+/*
+** the s_lsection function
+** is used only exclusively in the nm
+*/
+
 typedef struct 			s_lsection
 {
 	struct s_section	*first;
 	struct s_section	*last;
 }						t_lsection;
+
+/*
+** For the otool I will use a more versatile
+** struct. The s_section_list will take a
+** struct section * including all the crucial
+** information which we'll need
+*/
+
+typedef struct 	s_section_list
+{
+	struct section_64	*section_64;
+	struct section		*section_32;
+	t_section_list		*next;
+	t_section_list		*prev;
+}				t_section_list;
 
 
 void ft_nm(char *ptr);
