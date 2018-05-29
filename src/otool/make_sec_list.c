@@ -4,7 +4,7 @@
 ** puts the sought after sections into a t_section_list
 */
 
-void process_sects(struct load_command *lc)
+void process_sects(struct load_command *lc, t_section_list **sec_list)
 {
 	struct segment_command *seg;
 	struct section *sec;
@@ -15,8 +15,7 @@ void process_sects(struct load_command *lc)
 	sec = (struct section *)((char *)seg + sizeof(struct segment_command));
 	while (i < seg->nsects)
 	{
-		ft_putendl(sec->sectname);			   // TESTING
-		ft_printf("\n%d\n", (int)sec->offset); // TESTING
+		add_sec(sec_list, sec, NULL);
 		sec = (struct section *)((void *)sec + sizeof(struct section));
 		i++;
 	}
@@ -72,7 +71,7 @@ void find_lc_segments(struct load_command *lc, char *ptr, t_section_list **sec_l
 	while (!is_64 && i < header->ncmds)
 	{
 		if (lc->cmd == LC_SEGMENT)
-			process_sects(lc);
+			process_sects(lc, sec_list);
 		lc += lc->cmdsize / sizeof(void *);
 		i++;
 	}
@@ -94,22 +93,5 @@ t_section_list *make_sec_list(char *ptr, T_BOOL is_64)
 	else
 		lc = (void *)ptr + sizeof(struct mach_header);
 	find_lc_segments(lc, ptr, &sec_list, is_64);
-
-
-	/////////////////////
-	t_section_list *tmp;
-	tmp = sec_list;
-	while (tmp)
-	{
-		ft_putendl(tmp->section_64->sectname); // TESTING
-		tmp = tmp->next;
-	}
-
-
-	/////////////////// TESTING
-
-
 	return (sec_list);
-
-	exit(0); // TESTING
 }
