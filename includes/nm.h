@@ -46,10 +46,10 @@ typedef struct 			s_lsection
 
 typedef struct 	s_section_list
 {
-	struct section_64	*section_64;
-	struct section		*section_32;
-	t_section_list		*next;
-	t_section_list		*prev;
+	struct section_64			*section_64;
+	struct section				*section_32;
+	struct s_section_list		*next;
+	struct s_section_list		*prev;
 }				t_section_list;
 
 

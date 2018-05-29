@@ -24,7 +24,7 @@ void push_back(t_lsection *list, t_section *add)
 // which are needed for the otool
 // sec->size
 // sec->offset
-void add_to_list(char *sectname, t_lsection *list, T_BOOL is_64)
+void add_to_list(char *sectname, t_lsection *list)
 {
 
 	t_section *add;
