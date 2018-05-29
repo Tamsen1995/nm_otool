@@ -54,7 +54,7 @@ typedef struct 	s_section_list
 
 
 t_section_list *make_sec_list(char *ptr, T_BOOL is_64);
-
+void add_sec(t_section_list **sec_list, struct section *sec, struct section_64 *sec_64);
 
 
 
