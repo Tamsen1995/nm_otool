@@ -3,6 +3,8 @@
 		"nm.h": "c",
 		"libft.h": "c",
 		"nlist.h": "c",
-		"ar.h": "c"
+		"ar.h": "c",
+		"loader.h": "c",
+		"ranlib.h": "c"
 	}
 }

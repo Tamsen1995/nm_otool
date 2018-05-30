@@ -50,21 +50,26 @@ void go_archive(char *ptr)
 	int after_slash_size;
 	char *ranlib_size;
 	int ran_size;
+	int i;
 
-	ran = NULL; // TESTING
+	i = 0;
 	arch = (void *)ptr + SARMAG;
 	after_slash_size = get_archive_size(arch->ar_name);
-	// in order to get to the first ranlib we need to find
-	// whats after the magic number, the ar header, and the special archive member's size (which could be 0 in the case of its absence) + 4. 4 because the wordsize is 4 bytes long
 	ran = (void *)ptr + SARMAG + sizeof(*arch) + 4;
-	// the ranlibs's size will be right after the magic number, the ar header, and the special archive member's size
 	ranlib_size = (void *)ptr + SARMAG + sizeof(*arch);
+	ran_size = (int)(*ranlib_size);
+	ran_size = ran_size / sizeof(struct ranlib);
 
-	// get the size of the ranlib
+	// iterate through the ranlibs and put all the crucial info into a linked list
 
-	// divide it by the size of a ranlib struct to get the number of ranlibs
+	// crucial information I'll need the ran[i].ran_off which is the offset
+	// I also need the ran[].ran_un.ran_strx which is the string table index
 
-	//
+	while (i < ran_size)
+	{
+		
+		i++;
+	}
 
 
 	exit(0); // TESTING
