@@ -1,6 +1,8 @@
 {
 	"files.associations": {
 		"nm.h": "c",
-		"libft.h": "c"
+		"libft.h": "c",
+		"nlist.h": "c",
+		"ar.h": "c"
 	}
 }
