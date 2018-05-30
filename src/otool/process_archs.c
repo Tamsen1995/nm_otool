@@ -10,8 +10,17 @@
 
 void print_archs(uint32_t offset, char *ptr)
 {
+    struct ar_hdr *arch;
+    char *name;
+
+    arch = NULL;
+    name = NULL;
     if (!offset || !ptr)
         fatal("Error in print_archs()");
+    arch = (void *)ptr + offset;
+    name = arch->ar_name;
+
+    ft_printf("\n%s\n", name); // TESTING
 
     // offset the ptr
     //get the archive's name
