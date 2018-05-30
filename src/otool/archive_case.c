@@ -81,6 +81,6 @@ void go_archive(char *ptr)
 		add_ran_offset(&lst, ran[i].ran_off, ran[i].ran_un.ran_strx);
 		i++;
 	}
-//	handle_archs(lst);
+	process_archs(ptr, lst);
 	exit(0); // TESTING
 }

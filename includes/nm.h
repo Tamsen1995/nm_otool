@@ -77,6 +77,7 @@ typedef struct	s_ran_offset
 t_section_list *make_sec_list(char *ptr, T_BOOL is_64);
 void add_sec(t_section_list **sec_list, struct section *sec, struct section_64 *sec_64);
 void go_archive(char *ptr);
+void process_archs(char *ptr, t_ran_offset *list);
 
 /*
 ** These functions were made for the nm
