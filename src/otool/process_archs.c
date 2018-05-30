@@ -12,7 +12,11 @@ void print_archs(uint32_t offset, char *ptr)
 {
     if (!offset || !ptr)
         fatal("Error in print_archs()");
-    
+
+    // offset the ptr
+    //get the archive's name
+    // get the size of the special archive member
+    // print the filename and the archive name
 }
 
 /*
