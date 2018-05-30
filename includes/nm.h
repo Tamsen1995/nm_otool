@@ -55,10 +55,28 @@ typedef struct 	s_section_list
 }				t_section_list;
 
 
+
+/*
+** in the otool I need a structure which ensures me
+** access to all the offsets of the ranlib indexes
+** all the offsets of the ranlib for me
+*/
+
+typedef struct	s_ran_offset
+{
+	uint32_t offset;
+	uint32_t strx;
+	struct s_ran_offset *next;
+}				t_ran_offset;
+
+
+/*
+** functions created during the otool
+*/
+
 t_section_list *make_sec_list(char *ptr, T_BOOL is_64);
 void add_sec(t_section_list **sec_list, struct section *sec, struct section_64 *sec_64);
-
-
+void go_archive(char *ptr);
 
 /*
 ** These functions were made for the nm
