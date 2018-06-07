@@ -42,7 +42,7 @@ int main(int ac, char **av)
 		fatal("fstat in the main");
 	if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 		fatal("mmap");
-	ft_otool(ptr); // This is where we enter the main flow of the nm
+	ft_otool(ptr); // This is where we enter the main flow of the otool
 	if (munmap(ptr, buf.st_size) < 0)
 	{
 		perror("munmap");

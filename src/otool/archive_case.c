@@ -39,6 +39,7 @@ void add_ran_offset(t_ran_offset **lst, uint32_t offset, uint32_t strx)
 	t_ran_offset *new;
 
 	tmp = (*lst);
+	//printf("\n%d\n", (int) offset); // TESTING
 	new = create_ran_offset(offset, strx);
 	if (!(*lst))
 	{
@@ -68,10 +69,16 @@ void go_archive(char *ptr)
 	lst = NULL;
 	arch = (void *)ptr + SARMAG;
 	after_slash_size = get_archive_size(arch->ar_name);
-	ran = (void *)ptr + SARMAG + sizeof(*arch) + 4;
-	ranlib_size = (void *)ptr + SARMAG + sizeof(*arch);
-	ran_size = (int)(*ranlib_size);
+
+	ranlib_size = (void *)ptr + sizeof(*arch) + SARMAG + after_slash_size;
+	ran = (void *)ptr + SARMAG + sizeof(*arch) + after_slash_size + 4;
+	ran_size = *((int*)ranlib_size);
 	ran_size = ran_size / sizeof(struct ranlib);
+
+
+
+	ft_printf("\n\n\nran_size--> %d\n\n\n", ran_size); // TESTING
+
 
 	// iterate through the ranlibs and put all the crucial info into a linked list
 	// crucial information I'll need the ran[i].ran_off which is the offset

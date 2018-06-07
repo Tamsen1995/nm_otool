@@ -19,9 +19,6 @@ void print_archs(uint32_t offset, char *ptr)
         fatal("Error in print_archs()");
     arch = (void *)ptr + offset;
     name = arch->ar_name;
-
-    ft_printf("\n%s\n", name); // TESTING
-
     // offset the ptr
     //get the archive's name
     // get the size of the special archive member
@@ -41,12 +38,9 @@ void process_archs(char *ptr, t_ran_offset *list)
     tmp = list;
     if (!ptr || !list)
         fatal("Error inside of process_archs()");
-
     while (tmp)
     {
         print_archs(tmp->offset, ptr);
         tmp = tmp->next;
     }
-    // (void*)arch + sizeof(*arch) + size_fuck
-    // get to the
 }
