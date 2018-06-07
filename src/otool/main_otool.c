@@ -13,12 +13,17 @@
 void ft_otool(char *ptr)
 {
 	unsigned int magic_number;
-
 	magic_number = *(int *)ptr;
 	if (magic_number == MH_MAGIC_64)
+	{
+		ft_printf("Inside the MH_MAGIC_64 case"); // TESTING
 		make_sec_list(ptr, TRUE);
+	}
 	else if (magic_number == MH_MAGIC)
+	{
+		ft_printf("Inside the MH_MAGIC 32 bit case"); // TESTING
 		make_sec_list(ptr, FALSE);
+	}
 	else if (ft_strncmp(ptr, ARMAG, SARMAG) == 0)
 		go_archive(ptr);
 }

@@ -19,8 +19,23 @@ void print_archs(uint32_t offset, char *ptr)
         fatal("Error in print_archs()");
     arch = (void *)ptr + offset;
     name = arch->ar_name;
+
+
+
+
     // offset the ptr
-    //get the archive's name
+
+    // TODO : 
+    // get the archive's name
+        // to get to the archive's name I need to get
+        // past the first '\n
+        // There I can find the name of the archive
+    
+
+
+
+    ft_printf("\n%s\n", name); // TESTING
+
     // get the size of the special archive member
     // print the filename and the archive name
 }

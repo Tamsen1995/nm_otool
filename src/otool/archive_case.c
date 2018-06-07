@@ -75,11 +75,6 @@ void go_archive(char *ptr)
 	ran_size = *((int*)ranlib_size);
 	ran_size = ran_size / sizeof(struct ranlib);
 
-
-
-	ft_printf("\n\n\nran_size--> %d\n\n\n", ran_size); // TESTING
-
-
 	// iterate through the ranlibs and put all the crucial info into a linked list
 	// crucial information I'll need the ran[i].ran_off which is the offset
 	// I also need the ran[].ran_un.ran_strx which is the string table index
