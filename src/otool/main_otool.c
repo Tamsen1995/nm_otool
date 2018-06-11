@@ -5,9 +5,7 @@
 ** case
 */
 
-// TODO : The otool  oughta print
-// archive case (always to be followed by the normal otool): file argument name, file name, a string indicating that a text section is coming up
-// section address, and the section's text section 
+
 void ft_otool(char *ptr, char *filename)
 {
 	unsigned int magic_number;
@@ -16,6 +14,7 @@ void ft_otool(char *ptr, char *filename)
 	{
 		ft_printf("Inside the MH_MAGIC_64 case"); // TESTING
 		make_sec_list(ptr, TRUE);
+		
 	}
 	else if (magic_number == MH_MAGIC)
 	{
