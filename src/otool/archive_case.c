@@ -53,6 +53,8 @@ void add_ran_offset(t_ran_offset **lst, uint32_t offset, uint32_t strx)
 
 /*
 ** handles the archive case
+** ptr/////// arch /////// ranlib_size /// ran ///////////////////////////
+** the ranlibe_size indicates the amount of ranlibs there are in the file archive.
 */
 
 void go_archive(char *ptr)
