@@ -3,7 +3,9 @@
 
 #define PROT PROT_READ | PROT_WRITE
 #define ANON MAP_PRIVATE | MAP_ANONYMOUS
-//# define BLOCK_SIZE sizeof(struct s_block)
+
+# define TXT "__TEXT"
+# define TUT "__text"
 
 # include "./libft.h"
 # include <mach-o/loader.h>
@@ -54,8 +56,6 @@ typedef struct 	s_section_list
 	struct s_section_list		*prev;
 }				t_section_list;
 
-
-
 /*
 ** in the otool I need a structure which ensures me
 ** access to all the offsets of the ranlib indexes
@@ -79,7 +79,7 @@ t_section_list *make_sec_list(char *ptr, T_BOOL is_64);
 void add_sec(t_section_list **sec_list, struct section *sec, struct section_64 *sec_64);
 void go_archive(char *ptr, char *filename);
 void process_archs(char *ptr, t_ran_offset *list, char *filename);
-int		get_archive_size(char *name);
+int get_archive_size(char *name);
 
 
 /*
