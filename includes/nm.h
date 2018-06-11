@@ -9,6 +9,8 @@
 # include <mach-o/loader.h>
 # include <mach-o/nlist.h>
 # include <mach-o/fat.h>
+# include <ar.h>
+# include <mach-o/ranlib.h>
 
 typedef struct			s_symbols
 {
@@ -53,9 +55,31 @@ typedef struct 	s_section_list
 }				t_section_list;
 
 
+
+/*
+** in the otool I need a structure which ensures me
+** access to all the offsets of the ranlib indexes
+** all the offsets of the ranlib for me
+*/
+
+typedef struct	s_ran_offset
+{
+	uint32_t offset;
+	uint32_t strx;
+	struct s_ran_offset *next;
+}				t_ran_offset;
+
+
+/*
+** functions created during the otool
+*/
+
+void ft_otool(char *ptr, char *filename);
 t_section_list *make_sec_list(char *ptr, T_BOOL is_64);
 void add_sec(t_section_list **sec_list, struct section *sec, struct section_64 *sec_64);
-
+void go_archive(char *ptr, char *filename);
+void process_archs(char *ptr, t_ran_offset *list, char *filename);
+int		get_archive_size(char *name);
 
 
 /*

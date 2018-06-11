@@ -33,6 +33,7 @@ SRC = ft_atoi.c \
 	ft_strdel.c \
 	ft_strdup.c \
 	ft_strequ.c \
+	ft_strchr.c \
 	ft_striter.c \
 	ft_striteri.c \
 	ft_strjoin.c \

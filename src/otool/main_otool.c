@@ -1,20 +1,28 @@
 #include "../../includes/nm.h"
-
 /*
 ** checking for the magic number
 ** and redirecting the flow into the proper
 ** case
 */
 
-void ft_otool(char *ptr)
+
+void ft_otool(char *ptr, char *filename)
 {
 	unsigned int magic_number;
-
 	magic_number = *(int *)ptr;
 	if (magic_number == MH_MAGIC_64)
+	{
+		ft_printf("Inside the MH_MAGIC_64 case"); // TESTING
 		make_sec_list(ptr, TRUE);
+		
+	}
 	else if (magic_number == MH_MAGIC)
+	{
+		ft_printf("Inside the MH_MAGIC 32 bit case"); // TESTING
 		make_sec_list(ptr, FALSE);
+	}
+	else if (ft_strncmp(ptr, ARMAG, SARMAG) == 0)
+		go_archive(ptr, filename);
 }
 
 /*
@@ -36,7 +44,7 @@ int main(int ac, char **av)
 		fatal("fstat in the main");
 	if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 		fatal("mmap");
-	ft_otool(ptr); // This is where enter the main flow of the nm
+	ft_otool(ptr, av[1]);
 	if (munmap(ptr, buf.st_size) < 0)
 	{
 		perror("munmap");
