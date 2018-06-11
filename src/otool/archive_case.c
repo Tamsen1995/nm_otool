@@ -5,6 +5,7 @@
 ** this archive member holds file's name's size in the name itself
 ** the actual name is right after the struct
 */
+
 int get_archive_size(char *name)
 {
 	int ret;
@@ -39,7 +40,6 @@ void add_ran_offset(t_ran_offset **lst, uint32_t offset, uint32_t strx)
 	t_ran_offset *new;
 
 	tmp = (*lst);
-	//printf("\n%d\n", (int) offset); // TESTING
 	new = create_ran_offset(offset, strx);
 	if (!(*lst))
 	{
@@ -53,11 +53,10 @@ void add_ran_offset(t_ran_offset **lst, uint32_t offset, uint32_t strx)
 
 /*
 ** handles the archive case
-** ptr/////// arch /////// ranlib_size /// ran ///////////////////////////
 ** the ranlibe_size indicates the amount of ranlibs there are in the file archive.
 */
 
-void go_archive(char *ptr)
+void go_archive(char *ptr, char *filename)
 {
 	struct ar_hdr *arch;
 	struct ranlib *ran;
@@ -71,20 +70,14 @@ void go_archive(char *ptr)
 	lst = NULL;
 	arch = (void *)ptr + SARMAG;
 	after_slash_size = get_archive_size(arch->ar_name);
-
 	ranlib_size = (void *)ptr + sizeof(*arch) + SARMAG + after_slash_size;
 	ran = (void *)ptr + SARMAG + sizeof(*arch) + after_slash_size + 4;
 	ran_size = *((int*)ranlib_size);
 	ran_size = ran_size / sizeof(struct ranlib);
-
-	// iterate through the ranlibs and put all the crucial info into a linked list
-	// crucial information I'll need the ran[i].ran_off which is the offset
-	// I also need the ran[].ran_un.ran_strx which is the string table index
 	while (i < ran_size)
 	{
 		add_ran_offset(&lst, ran[i].ran_off, ran[i].ran_un.ran_strx);
 		i++;
 	}
-	process_archs(ptr, lst);
-	exit(0); // TESTING
+	process_archs(ptr, lst, filename);
 }

@@ -1,16 +1,14 @@
 #include "../../includes/nm.h"
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /*
 ** checking for the magic number
 ** and redirecting the flow into the proper
 ** case
 */
 
-void ft_otool(char *ptr)
+// TODO : The otool  oughta print
+// archive case (always to be followed by the normal otool): file argument name, file name, a string indicating that a text section is coming up
+// section address, and the section's text section 
+void ft_otool(char *ptr, char *filename)
 {
 	unsigned int magic_number;
 	magic_number = *(int *)ptr;
@@ -25,7 +23,7 @@ void ft_otool(char *ptr)
 		make_sec_list(ptr, FALSE);
 	}
 	else if (ft_strncmp(ptr, ARMAG, SARMAG) == 0)
-		go_archive(ptr);
+		go_archive(ptr, filename);
 }
 
 /*
@@ -47,7 +45,7 @@ int main(int ac, char **av)
 		fatal("fstat in the main");
 	if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
 		fatal("mmap");
-	ft_otool(ptr); // This is where we enter the main flow of the otool
+	ft_otool(ptr, av[1]);
 	if (munmap(ptr, buf.st_size) < 0)
 	{
 		perror("munmap");
