@@ -5,6 +5,8 @@
 		"nlist.h": "c",
 		"ar.h": "c",
 		"loader.h": "c",
-		"ranlib.h": "c"
+		"ranlib.h": "c",
+		"time.h": "c",
+		"resource.h": "c"
 	}
 }
