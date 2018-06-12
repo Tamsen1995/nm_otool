@@ -18,6 +18,21 @@ char *get_object_name(char *archive_name)
     return (ret);
 }
 
+char *make_object_name(char *filename, char *object_name)
+{
+    char *ret;
+
+    ret = NULL;
+    if (!filename || !object_name)
+        return (filename);
+    ret = ft_strnew(ft_strlen(filename) + ft_strlen(object_name) + 2);
+    ret = ft_strcat(ret, filename);
+    ret = ft_strcat(ret, "(");
+    ret = ft_strcat(ret, object_name);
+    ret = ft_strcat(ret, ")");
+    return (ret);
+}
+
 /*
 ** offsets a pointer to
 ** the proper position to be outputted
@@ -42,7 +57,7 @@ void print_archs(uint32_t offset, char *ptr, char *filename)
     name = arch->ar_name;
     object_name = get_object_name(name);
     after_slash_size = get_archive_size(arch->ar_name);
-    ft_printf("\n%s(%s):\n", filename, object_name);
+    filename = make_object_name(filename, object_name);
     ft_otool((void *)arch + sizeof(*arch) + after_slash_size, filename);
 }
 
