@@ -55,6 +55,32 @@ void output_sections_64(char *ptr, t_section_list *sec_list, char *filename)
 	ft_printf("\n");
 }
 
+
+/*
+** a function outputting all the necessary info
+** of the sections needed by the otool
+*/
+
+void output_sections_32(char *ptr, t_section_list *sec_list, char *filename)
+{
+	t_section_list *tmp;
+
+	tmp = sec_list;
+	while (tmp)
+	{
+
+		if (!ft_strcmp(tmp->section_32->sectname, TUT) && !ft_strcmp(tmp->section_32->segname, TXT))
+		{
+			ft_printf("\n%s:\n", filename);
+			ft_printf("Contents of (__TEXT,__text) section\n");
+			print_sec_info(tmp->section_32->addr, tmp->section_32->size, ptr + tmp->section_32->offset);
+		}
+		tmp = tmp->next;
+	}
+	ft_printf("\n");
+}
+
+
 /*
 ** checking for the magic number
 ** and redirecting the flow into the proper
@@ -75,8 +101,8 @@ void ft_otool(char *ptr, char *filename)
 	}
 	else if (magic_number == MH_MAGIC)
 	{
-		ft_printf("Inside the MH_MAGIC 32 bit case"); // TESTING
 		sec_list = make_sec_list(ptr, FALSE);
+		output_sections_32(ptr, sec_list, filename);
 	}
 	else if (ft_strncmp(ptr, ARMAG, SARMAG) == 0)
 		go_archive(ptr, filename);
