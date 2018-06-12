@@ -36,7 +36,7 @@ void print_sec_info(uint64_t addr, uint64_t size, char *sec_ptr)
 ** of the sections needed by the otool
 */
 
-void output_sections_64(char *ptr, t_section_list *sec_list)
+void output_sections_64(char *ptr, t_section_list *sec_list, char *filename)
 {
 	t_section_list *tmp;
 
@@ -46,12 +46,13 @@ void output_sections_64(char *ptr, t_section_list *sec_list)
 
 		if (!ft_strcmp(tmp->section_64->sectname, TUT) && !ft_strcmp(tmp->section_64->segname, TXT))
 		{
-			
+			ft_printf("\n%s:\n", filename);
+			ft_printf("Contents of (__TEXT,__text) section\n");
 			print_sec_info(tmp->section_64->addr, tmp->section_64->size, ptr + tmp->section_64->offset);
 		}
-
 		tmp = tmp->next;
 	}
+	ft_printf("\n");
 }
 
 /*
@@ -70,7 +71,7 @@ void ft_otool(char *ptr, char *filename)
 	if (magic_number == MH_MAGIC_64)
 	{
 		sec_list = make_sec_list(ptr, TRUE);
-		output_sections_64(ptr, sec_list);
+		output_sections_64(ptr, sec_list, filename);
 	}
 	else if (magic_number == MH_MAGIC)
 	{
