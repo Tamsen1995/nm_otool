@@ -60,8 +60,10 @@ SRC = ft_atoi.c \
 	free_twod_arr.c \
 	ft_strfree.c \
 	ft_safe_opendir.c \
+	ft_itoa_base.c \
 	fatal.c \
 	make_file_path.c \
+	reverse_string.c \
 
 OBJ = $(addsuffix .o, $(basename $(SRC)))
 

@@ -112,6 +112,8 @@ typedef struct		s_stack
 	struct s_stack		*prev;
 }					t_stack;
 
+char				*ft_itoa_base(int num, int base);
+char				*reverse_string(char *str);
 char				*ft_strchr(char *s, int c);
 int					ft_count_chars(char *string, char c);
 char				*ft_remove_char(char *string, char c);
