@@ -1,20 +1,89 @@
 #include "../../includes/nm.h"
 
 /*
+** a utility to reverse a string
+** it allocates a new string which will be
+** the reverse of the given string
+** TODO : Put into libft
+*/
+
+char *reverse_string(char *str)
+{
+	int i;
+	int str_len;
+	char *ret;
+
+	i = 0;
+	ret = NULL;
+	str_len = ft_strlen(str) - 1;
+	if (!str)
+		return (NULL);
+	ret = ft_strnew(ft_strlen(str));
+	while (str[i] && str_len > -1)
+	{
+		ret[i] = str[str_len];
+		str_len--;
+		i++;
+	}
+	ret[i] = 0;
+	return (ret);
+}
+
+static char read_tab(int i)
+{
+	char *tab;
+
+	tab = "0123456789abcdefghijklmnopqrstuvwxyz";
+	return (tab[i]);
+}
+
+char *ft_itoa_base(int num, int base)
+{
+	int i;
+	unsigned int unsigned_val;
+	char *str;
+	char *ret;
+
+	i = 0;
+	str = ft_strnew(50);
+	ret = NULL;
+	unsigned_val = (unsigned int)num;
+	while (unsigned_val > 0)
+	{
+		str[i] = read_tab(unsigned_val % base);
+		unsigned_val = unsigned_val / base;
+		i++;
+	}
+	str[i] = '\0';
+	ret = reverse_string(str);
+	free(str);
+	return (ret);
+}
+
+/*
 ** prints out the text instructions of the
 ** section pointer
 */
 
 void print_sec_info(uint64_t addr, uint64_t size, char *sec_ptr)
 {
+	uint64_t i;
+
+	i = 0;
 	if (!sec_ptr)
 		fatal("Error in print_sec_info()");
+	while (i < size)
+	{
+		//	if (i % 16 != 0)
+		ft_printf("-> %s ", ft_itoa_base(sec_ptr[i], 16));
+		i++;
+	}
+
 
 	// TODO : Finish this function
-		// make sure to iterate the "size" through the sec_ptr[i]
-		// and print out all the pointer indexes in base 16 with itoa base
-		// every sixteenth position shall be an address
-
+	// make sure to iterate the "size" through the sec_ptr[i]
+	// and print out all the pointer indexes in base 16 with itoa base
+	// every sixteenth position shall be an address
 
 	ft_printf("\n%ap --- %u\n", addr, size); // TESTING
 }
