@@ -1,6 +1,59 @@
 #include "../../includes/nm.h"
 
 /*
+** Adds padding to a string
+*/
+char *pad_string(char *str, size_t x)
+{
+	char *ret;
+	size_t i;
+
+	i = 0;
+	ret = NULL;
+	if (!str || (x < ft_strlen(str)))
+		return (str);
+	ret = ft_strnew(x + 1);
+	while (i < (x - ft_strlen(str)))
+		ret[i++] = '0';
+	x = 0;
+	while (str[x])
+		ret[i++] = str[x++];
+	ret[i] = '\0';
+	return (ret);
+}
+
+/*
+** adjusts a string according to x bytes
+** if x is smaller than the strlen then
+** the last two bytes are kept
+** if it is greater then the string is padded with 0s
+*/
+
+char *adjust_str(char *str, size_t x)
+{
+	size_t i;
+	size_t adj;
+
+	i = 0;
+	adj = 0;
+	if (!str)
+		return (NULL);
+	if (x == ft_strlen(str))
+		return (str);
+	if (x > ft_strlen(str))
+		return (pad_string(str, x));
+	adj = ft_strlen(str) - x;
+	while (str[adj])
+	{
+		str[i] = str[adj];
+		i++;
+		adj++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+/*
 ** prints out the text instructions of the
 ** section pointer
 */
@@ -8,24 +61,28 @@
 void print_sec_info(uint64_t addr, uint64_t size, char *sec_ptr)
 {
 	uint64_t i;
+	char *str;
 
 	i = 0;
+	str = NULL;
 	if (!sec_ptr)
 		fatal("Error in print_sec_info()");
 	while (i < size)
 	{
-		if (i % 16 == 0)
-			ft_printf("\n");
-		ft_printf("%s ", ft_itoa_base(sec_ptr[i], 16));
+		str = ft_itoa_base(sec_ptr[i], 16);
+		str = adjust_str(str, 2);
+		if (i == 0 || i % 16 == 0)
+		{
+			if (i != 0)
+				addr += 16;
+			ft_printf("%ap\t", addr);
+		}
+		ft_printf("%s ", str);
+		if ((i + 1) % 16 == 0)
+			write(1, "\n", 1);
 		i++;
 	}
-
-	// TODO : Finish this function
-	// make sure to iterate the "size" through the sec_ptr[i]
-	// and print out all the pointer indexes in base 16 with itoa base
-	// every sixteenth position shall be an address
-
-	ft_printf("\n%ap --- %u\n", addr, size); // TESTING
+	// TESTING
 }
 
 /*
