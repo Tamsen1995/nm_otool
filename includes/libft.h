@@ -112,6 +112,7 @@ typedef struct		s_stack
 	struct s_stack		*prev;
 }					t_stack;
 
+char				*adjust_str(char *str, size_t x);
 char				*ft_itoa_base(int num, int base);
 char				*reverse_string(char *str);
 char				*ft_strchr(char *s, int c);

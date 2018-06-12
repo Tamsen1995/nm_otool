@@ -64,6 +64,7 @@ SRC = ft_atoi.c \
 	fatal.c \
 	make_file_path.c \
 	reverse_string.c \
+	adjust_string.c \
 
 OBJ = $(addsuffix .o, $(basename $(SRC)))
 

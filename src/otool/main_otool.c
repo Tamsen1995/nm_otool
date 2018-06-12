@@ -1,59 +1,6 @@
 #include "../../includes/nm.h"
 
 /*
-** Adds padding to a string
-*/
-char *pad_string(char *str, size_t x)
-{
-	char *ret;
-	size_t i;
-
-	i = 0;
-	ret = NULL;
-	if (!str || (x < ft_strlen(str)))
-		return (str);
-	ret = ft_strnew(x + 1);
-	while (i < (x - ft_strlen(str)))
-		ret[i++] = '0';
-	x = 0;
-	while (str[x])
-		ret[i++] = str[x++];
-	ret[i] = '\0';
-	return (ret);
-}
-
-/*
-** adjusts a string according to x bytes
-** if x is smaller than the strlen then
-** the last two bytes are kept
-** if it is greater then the string is padded with 0s
-*/
-
-char *adjust_str(char *str, size_t x)
-{
-	size_t i;
-	size_t adj;
-
-	i = 0;
-	adj = 0;
-	if (!str)
-		return (NULL);
-	if (x == ft_strlen(str))
-		return (str);
-	if (x > ft_strlen(str))
-		return (pad_string(str, x));
-	adj = ft_strlen(str) - x;
-	while (str[adj])
-	{
-		str[i] = str[adj];
-		i++;
-		adj++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
-/*
 ** prints out the text instructions of the
 ** section pointer
 */
@@ -82,7 +29,6 @@ void print_sec_info(uint64_t addr, uint64_t size, char *sec_ptr)
 			write(1, "\n", 1);
 		i++;
 	}
-	// TESTING
 }
 
 /*
@@ -100,7 +46,7 @@ void output_sections_64(char *ptr, t_section_list *sec_list)
 
 		if (!ft_strcmp(tmp->section_64->sectname, TUT) && !ft_strcmp(tmp->section_64->segname, TXT))
 		{
-			// only if they're text sections within text segments to we want to print them.
+			
 			print_sec_info(tmp->section_64->addr, tmp->section_64->size, ptr + tmp->section_64->offset);
 		}
 
