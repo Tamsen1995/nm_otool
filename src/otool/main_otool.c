@@ -1,6 +1,5 @@
 #include "../../includes/nm.h"
 
-
 // #define FAT_MAGIC	0xcafebabe
 // #define FAT_CIGAM	NXSwapLong(FAT_MAGIC)
 
@@ -17,50 +16,43 @@
 // 	unsigned long	align;		/* alignment as a power of 2 */
 // };
 
-
-
 /*
 ** handles the case of the fat headers
+** (only for the big endian architecture)
 */
 
 void go_fat(char *ptr)
 {
-	// fat headers
-	//handles the fat headers
-	// so a fat header struct is needed
-	// This is the structure which indicates the number
 	struct fat_header *fat;
-
-	// of fat archives that I'm supposed to iterate over
-	// This indicates certain information about said archives,
-	// such as the offset, size, and the cpu types
 	struct fat_arch *arch;
 	uint32_t nfats;
+	uint32_t offset;
 
-	fat = NULL;
-	arch = NULL;
+	nfats = 0;
+	offset = 0;
 	if (!ptr)
-		return ;
+		return;
 	fat = (void *)ptr;
-	
-	ft_printf("\n%u\n", fat->nfat_arch); // TESTING
 	nfats = swap_uint32(fat->nfat_arch);
-
-
-
-	// the fat header struct is then
-	// pointed to the beginning
-	// bytes are being swapped
-	// in order to get to the fat archive
+	arch = (void *)ptr + sizeof(fat);
+	// in order to get to the first fat archive
 	// we need to jump a fat_header ahead of the pointer beg
-	// while we haven't iterated over all the
-	// nfat structs yet
-	// swap the bytes of the arch->cputype in order to
-	// check which cpu type we're dealing with
-	// if it's CPU_TYPE_X86_64 then the offset should be that archive
-	// in order to read anything in the arch header
+	while (nfats)
+	{
+		// swap the bytes of the arch->cputype in order to
+		// check which cpu type we're dealing with
+		// if it's CPU_TYPE_X86_64 then the offset should be that archive
+		// in order to read anything in the arch header
+		ft_printf("\n%u\n", nfats);
+		if (swap_uint32(arch->cputype) == CPU_TYPE_X86_64)
+			offset = arch->offset;
+		arch += sizeof(arch) / sizeof(void *);
+		nfats--;
+	}
+
 	// I will need to swap the bytes since everything in the
 	// fat header is of little endian
+	ft_otool((void *)ptr + swap_uint32(offset), "NULL");
 }
 
 /*
@@ -86,7 +78,7 @@ void ft_otool(char *ptr, char *filename)
 		sec_list = make_sec_list(ptr, FALSE);
 		output_sections_32(ptr, sec_list, filename);
 	}
-	else if (magic_number == FAT_CIGAM || magic_number == FAT_MAGIC)
+	else if (magic_number == FAT_CIGAM) // || magic_number == FAT_MAGIC)
 	{
 		go_fat(ptr);
 	}
