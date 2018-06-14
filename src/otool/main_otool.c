@@ -1,85 +1,67 @@
 #include "../../includes/nm.h"
 
-/*
-** prints out the text instructions of the
-** section pointer
-*/
 
-void print_sec_info(uint64_t addr, uint64_t size, char *sec_ptr)
-{
-	uint64_t i;
-	char *str;
+// #define FAT_MAGIC	0xcafebabe
+// #define FAT_CIGAM	NXSwapLong(FAT_MAGIC)
 
-	i = 0;
-	str = NULL;
-	if (!sec_ptr)
-		fatal("Error in print_sec_info()");
-	while (i < size)
-	{
-		str = ft_itoa_base(sec_ptr[i], 16);
-		str = adjust_str(str, 2);
-		if (i == 0 || i % 16 == 0)
-		{
-			if (i != 0)
-				addr += 16;
-			ft_printf("%ap\t", addr);
-		}
-		ft_printf("%s ", str);
-		if ((i + 1) % 16 == 0)
-			write(1, "\n", 1);
-		i++;
-	}
-}
+// struct fat_header {
+// 	unsigned long	magic;		/* FAT_MAGIC */
+// 	unsigned long	nfat_arch;	/* number of structs that follow */
+// };
 
-/*
-** a function outputting all the necessary info
-** of the sections needed by the otool
-*/
+// struct fat_arch {
+// 	cpu_type_t	cputype;	/* cpu specifier (int) */
+// 	cpu_subtype_t	cpusubtype;	/* machine specifier (int) */
+// 	unsigned long	offset;		/* file offset to this object file */
+// 	unsigned long	size;		/* size of this object file */
+// 	unsigned long	align;		/* alignment as a power of 2 */
+// };
 
-void output_sections_64(char *ptr, t_section_list *sec_list, char *filename)
-{
-	t_section_list *tmp;
-
-	tmp = sec_list;
-	while (tmp)
-	{
-
-		if (!ft_strcmp(tmp->section_64->sectname, TUT) && !ft_strcmp(tmp->section_64->segname, TXT))
-		{
-			ft_printf("\n%s:\n", filename);
-			ft_printf("Contents of (__TEXT,__text) section\n");
-			print_sec_info(tmp->section_64->addr, tmp->section_64->size, ptr + tmp->section_64->offset);
-		}
-		tmp = tmp->next;
-	}
-	ft_printf("\n");
-}
 
 
 /*
-** a function outputting all the necessary info
-** of the sections needed by the otool
+** handles the case of the fat headers
 */
 
-void output_sections_32(char *ptr, t_section_list *sec_list, char *filename)
+void go_fat(char *ptr)
 {
-	t_section_list *tmp;
+	// fat headers
+	//handles the fat headers
+	// so a fat header struct is needed
+	// This is the structure which indicates the number
+	struct fat_header *fat;
 
-	tmp = sec_list;
-	while (tmp)
-	{
+	// of fat archives that I'm supposed to iterate over
+	// This indicates certain information about said archives,
+	// such as the offset, size, and the cpu types
+	struct fat_arch *arch;
+	uint32_t nfats;
 
-		if (!ft_strcmp(tmp->section_32->sectname, TUT) && !ft_strcmp(tmp->section_32->segname, TXT))
-		{
-			ft_printf("\n%s:\n", filename);
-			ft_printf("Contents of (__TEXT,__text) section\n");
-			print_sec_info(tmp->section_32->addr, tmp->section_32->size, ptr + tmp->section_32->offset);
-		}
-		tmp = tmp->next;
-	}
-	ft_printf("\n");
+	fat = NULL;
+	arch = NULL;
+	if (!ptr)
+		return ;
+	fat = (void *)ptr;
+	
+	ft_printf("\n%u\n", fat->nfat_arch); // TESTING
+	nfats = swap_uint32(fat->nfat_arch);
+
+
+
+	// the fat header struct is then
+	// pointed to the beginning
+	// bytes are being swapped
+	// in order to get to the fat archive
+	// we need to jump a fat_header ahead of the pointer beg
+	// while we haven't iterated over all the
+	// nfat structs yet
+	// swap the bytes of the arch->cputype in order to
+	// check which cpu type we're dealing with
+	// if it's CPU_TYPE_X86_64 then the offset should be that archive
+	// in order to read anything in the arch header
+	// I will need to swap the bytes since everything in the
+	// fat header is of little endian
 }
-
 
 /*
 ** checking for the magic number
@@ -103,6 +85,10 @@ void ft_otool(char *ptr, char *filename)
 	{
 		sec_list = make_sec_list(ptr, FALSE);
 		output_sections_32(ptr, sec_list, filename);
+	}
+	else if (magic_number == FAT_CIGAM || magic_number == FAT_MAGIC)
+	{
+		go_fat(ptr);
 	}
 	else if (ft_strncmp(ptr, ARMAG, SARMAG) == 0)
 		go_archive(ptr, filename);
