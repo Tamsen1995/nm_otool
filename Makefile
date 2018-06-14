@@ -10,6 +10,7 @@ NAME_ot = ft_otool
 
 SRC_ot = src/otool/main_otool.c \
 	src/otool/make_sec_list.c \
+	src/otool/fat_case.c \
 	src/otool/add_sec.c \
 	src/otool/archive_case.c \
 	src/otool/process_archs.c \

@@ -44,10 +44,10 @@ void output_sections_64(char *ptr, t_section_list *sec_list, char *filename)
 	tmp = sec_list;
 	while (tmp)
 	{
-
 		if (!ft_strcmp(tmp->section_64->sectname, TUT) && !ft_strcmp(tmp->section_64->segname, TXT))
 		{
-			ft_printf("\n%s:\n", filename);
+			if (filename)
+				ft_printf("\n%s:\n", filename);
 			ft_printf("Contents of (__TEXT,__text) section\n");
 			print_sec_info(tmp->section_64->addr, tmp->section_64->size, ptr + tmp->section_64->offset);
 		}
@@ -71,7 +71,8 @@ void output_sections_32(char *ptr, t_section_list *sec_list, char *filename)
 
 		if (!ft_strcmp(tmp->section_32->sectname, TUT) && !ft_strcmp(tmp->section_32->segname, TXT))
 		{
-			ft_printf("\n%s:\n", filename);
+			if (filename)
+				ft_printf("\n%s:\n", filename);
 			ft_printf("Contents of (__TEXT,__text) section\n");
 			print_sec_info(tmp->section_32->addr, tmp->section_32->size, ptr + tmp->section_32->offset);
 		}

@@ -73,7 +73,8 @@ typedef struct	s_ran_offset
 /*
 ** functions created during the otool
 */
-
+void go_fat_big(char *ptr);
+void go_fat_lil(char *ptr);
 void output_sections_64(char *ptr, t_section_list *sec_list, char *filename);
 void output_sections_32(char *ptr, t_section_list *sec_list, char *filename);
 void ft_otool(char *ptr, char *filename);
