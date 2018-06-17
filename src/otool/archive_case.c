@@ -80,4 +80,5 @@ void go_archive(char *ptr, char *filename)
 		i++;
 	}
 	process_archs(ptr, lst, filename);
+	// TODO : Free the t_ran_offset list here
 }
