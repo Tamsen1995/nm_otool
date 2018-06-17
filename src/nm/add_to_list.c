@@ -14,6 +14,7 @@ void push_back(t_lsection *list, t_section *add)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = add;
+	add->prev = tmp;
 	add->nb = tmp->nb + 1;
 	list->last = add;
 }

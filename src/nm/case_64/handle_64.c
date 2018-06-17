@@ -25,4 +25,5 @@ void handle_64(char *ptr)
 		i++;
 		lc = (void *)lc + lc->cmdsize;
 	}
+	free_sec_list_nm(sec_list);
 }

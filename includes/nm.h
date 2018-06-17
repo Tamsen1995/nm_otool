@@ -28,6 +28,7 @@ typedef struct 			s_section
 	char				*name;
 	unsigned int 		nb;
 	struct s_section	*next;
+	struct s_section	*prev;
 }						t_section;
 
 /*
@@ -105,6 +106,7 @@ t_symbols *add_before(t_symbols *add_bef_this, t_symbols *add);
 uint32_t swap_uint32(uint32_t val);
 t_symbols *bubble_sort(t_symbols *sym_list);
 t_symbols *del_dupl_nd_stabs(t_symbols *sym_list);
+void free_sec_list_nm(t_lsection *sec_list);
 
 /*
 Testing functions
