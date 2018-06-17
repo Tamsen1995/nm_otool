@@ -78,7 +78,7 @@ void go_fat_lil(char *ptr);
 void output_sections_64(char *ptr, t_section_list *sec_list, char *filename);
 void output_sections_32(char *ptr, t_section_list *sec_list, char *filename);
 void ft_otool(char *ptr, char *filename);
-t_section_list *make_sec_list(char *ptr, T_BOOL is_64);
+void make_sec_list(char *ptr, char *filename, T_BOOL is_64);
 void add_sec(t_section_list **sec_list, struct section *sec, struct section_64 *sec_64);
 void go_archive(char *ptr, char *filename);
 void process_archs(char *ptr, t_ran_offset *list, char *filename);

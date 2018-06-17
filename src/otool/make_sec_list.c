@@ -78,11 +78,31 @@ void find_lc_segments(struct load_command *lc, char *ptr, t_section_list **sec_l
 }
 
 /*
+** frees the section list after otool execution
+*/
+
+void free_sec_list(t_section_list *list)
+{
+	t_section_list *tmp;
+
+	tmp = list;
+	while (tmp->next)
+		tmp = tmp->next;
+	while (tmp->prev)
+	{
+		if (tmp->next)
+			free(tmp->next);
+		tmp = tmp->prev;
+	}
+	free(tmp);
+}
+
+/*
 ** passes the file ptr into the appropiate function
 ** so that a section list can be made.
 */
 
-t_section_list *make_sec_list(char *ptr, T_BOOL is_64)
+void	make_sec_list(char *ptr, char *filename, T_BOOL is_64)
 {
 	struct load_command *lc;
 	t_section_list *sec_list;
@@ -93,5 +113,9 @@ t_section_list *make_sec_list(char *ptr, T_BOOL is_64)
 	else
 		lc = (void *)ptr + sizeof(struct mach_header);
 	find_lc_segments(lc, ptr, &sec_list, is_64);
-	return (sec_list);
+	if (is_64)
+		output_sections_64(ptr, sec_list, filename);
+	else	
+		output_sections_32(ptr, sec_list, filename);
+	free_sec_list(sec_list);
 }

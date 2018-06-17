@@ -1,5 +1,8 @@
 #include "../../includes/nm.h"
 
+
+
+
 /*
 ** checking for the magic number
 ** and redirecting the flow into the proper
@@ -13,16 +16,14 @@ void ft_otool(char *ptr, char *filename)
 
 	magic_number = *(int *)ptr;
 	sec_list = NULL;
+
+	ft_printf("\nInside of ft_otool\n"); // TESTING
+	if (magic_number == MH_CIGAM_64)
+		fatal("This is the MH_CIGAM_64 Big endian case inside the ft_otool"); // TESTING
 	if (magic_number == MH_MAGIC_64)
-	{
-		sec_list = make_sec_list(ptr, TRUE);
-		output_sections_64(ptr, sec_list, filename);
-	}
+		make_sec_list(ptr, filename, TRUE);
 	else if (magic_number == MH_MAGIC)
-	{
-		sec_list = make_sec_list(ptr, FALSE);
-		output_sections_32(ptr, sec_list, filename);
-	}
+		make_sec_list(ptr, filename, FALSE);
 	else if (magic_number == FAT_CIGAM) // || magic_number == FAT_MAGIC)
 		go_fat_big(ptr);
 	else if (magic_number == FAT_MAGIC)
