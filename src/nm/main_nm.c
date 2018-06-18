@@ -17,6 +17,8 @@ int main(int ac, char **av)
 	i = 1;
 	while (i < ac)
 	{
+		if (ac > 2)
+			ft_printf("\n\n%s: \n\n", av[i]);
 		if (ac < 2)
 			fatal("Please give me an argument !\n");
 		if ((fd = open(av[i], O_RDONLY)) < 0)
