@@ -14,9 +14,9 @@ void push_back(t_lsection *list, t_section *add)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = add;
-	add->prev = tmp;
 	add->nb = tmp->nb + 1;
 	list->last = add;
+	add->prev = tmp;
 }
 
 
@@ -33,6 +33,7 @@ void add_to_list(char *sectname, t_lsection *list)
 	if ((add = (t_section *)malloc(sizeof(t_section))) == NULL)
 		return;
 	add->next = NULL;
+	add->prev = NULL;
 	add->name = ft_strdup(sectname);
 	if (!list->first)
 	{
