@@ -20,12 +20,17 @@ void ft_otool(char *ptr, char *filename)
 		make_sec_list(ptr, filename, TRUE);
 	else if (magic_number == MH_MAGIC)
 		make_sec_list(ptr, filename, FALSE);
-	else if (magic_number == FAT_CIGAM) // || magic_number == FAT_MAGIC)
+	else if (magic_number == FAT_CIGAM)
 		go_fat_big(ptr);
 	else if (magic_number == FAT_MAGIC)
 		go_fat_lil(ptr);
 	else if (ft_strncmp(ptr, ARMAG, SARMAG) == 0)
 		go_archive(ptr, filename);
+	else
+	{
+		ft_printf("%s:", filename);
+		fatal(" is not an object file");
+	}
 }
 
 /*
@@ -41,7 +46,6 @@ int main(int ac, char **av)
 	struct stat buf;
 
 	i = 1;
-
 	while (i < ac)
 	{
 		if ((fd = open(av[i], O_RDONLY)) < 0)
