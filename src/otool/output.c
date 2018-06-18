@@ -5,7 +5,7 @@
 ** section pointer
 */
 
-void print_sec_info(uint64_t addr, uint64_t size, char *sec_ptr)
+void print_sec_info(uint64_t addr, uint64_t size, char *sec_ptr, T_BOOL is_64)
 {
 	uint64_t i;
 	char *str;
@@ -22,7 +22,13 @@ void print_sec_info(uint64_t addr, uint64_t size, char *sec_ptr)
 		{
 			if (i != 0)
 				addr += 16;
-			ft_printf("%ap\t", addr);
+			if (is_64)
+				ft_printf("%ap\t", addr);
+			else
+			{
+				ft_printf("0000");
+				ft_printf("%s\t", printpointeur((void *)addr, 1));
+			}
 		}
 		ft_printf("%s ", str);
 		if ((i + 1) % 16 == 0)
@@ -49,7 +55,7 @@ void output_sections_64(char *ptr, t_section_list *sec_list, char *filename)
 			if (filename)
 				ft_printf("\n%s:\n", filename);
 			ft_printf("Contents of (__TEXT,__text) section\n");
-			print_sec_info(tmp->section_64->addr, tmp->section_64->size, ptr + tmp->section_64->offset);
+			print_sec_info(tmp->section_64->addr, tmp->section_64->size, ptr + tmp->section_64->offset, TRUE);
 		}
 		tmp = tmp->next;
 	}
@@ -74,7 +80,7 @@ void output_sections_32(char *ptr, t_section_list *sec_list, char *filename)
 			if (filename)
 				ft_printf("\n%s:\n", filename);
 			ft_printf("Contents of (__TEXT,__text) section\n");
-			print_sec_info(tmp->section_32->addr, tmp->section_32->size, ptr + tmp->section_32->offset);
+			print_sec_info(tmp->section_32->addr, tmp->section_32->size, ptr + tmp->section_32->offset, FALSE);
 		}
 		tmp = tmp->next;
 	}
