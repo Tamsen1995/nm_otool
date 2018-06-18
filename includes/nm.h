@@ -113,7 +113,7 @@ void free_sec_list_nm(t_lsection *sec_list);
 Testing functions
 */
 
-void print_symbols(t_symbols *sym_list);
+void print_symbols(t_symbols *sym_list, T_BOOL is_64);
 void print_syms_prev(t_symbols *sym_list);
 
 #endif

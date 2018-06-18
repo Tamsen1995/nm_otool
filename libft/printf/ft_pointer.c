@@ -1,4 +1,3 @@
-
 #include "libftprintf.h"
 
 int		ft_printpointeur(void *p)
