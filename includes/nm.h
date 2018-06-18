@@ -68,6 +68,7 @@ typedef struct	s_ran_offset
 	uint32_t offset;
 	uint32_t strx;
 	struct s_ran_offset *next;
+	struct s_ran_offset *prev;
 }				t_ran_offset;
 
 

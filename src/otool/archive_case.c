@@ -25,6 +25,7 @@ t_ran_offset *create_ran_offset(uint32_t offset, uint32_t strx)
 	if (!(new = (t_ran_offset *)malloc(sizeof(t_ran_offset))))
 		return (NULL);
 	new->next = NULL;
+	new->prev = NULL;
 	new->offset = offset;
 	new->strx = strx;
 	return (new);
@@ -49,6 +50,25 @@ void add_ran_offset(t_ran_offset **lst, uint32_t offset, uint32_t strx)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
+	new->prev = tmp;
+}
+
+//TODO : FINISH FUNCTION
+
+void free_offset_lst(t_ran_offset *lst)
+{
+	t_ran_offset *tmp;
+
+	tmp = lst;
+	while (tmp->next)
+		tmp = tmp->next;
+	while (tmp->prev)
+	{
+		if (tmp->next)
+			free(tmp->next);
+		tmp = tmp->prev;
+	}
+	free(tmp);
 }
 
 /*
@@ -80,4 +100,5 @@ void go_archive(char *ptr, char *filename)
 		i++;
 	}
 	process_archs(ptr, lst, filename);
+	free_offset_lst(lst);
 }
