@@ -101,7 +101,9 @@ void handle_32(char *ptr);
 t_lsection *get_sections_32(char *ptr);
 void process_symtab_32(struct symtab_command *sym, char *ptr, t_lsection *sec_list);
 void add_symbols_32(char *strtable, struct nlist list, t_lsection *sec_list, t_symbols **sym_list);
-void handle_fat(char *ptr);
+void handle_fat_big(char *ptr);
+void handle_fat_lil(char *ptr);
+
 void add_to_list(char *sectname, t_lsection *list);
 t_symbols *add_before(t_symbols *add_bef_this, t_symbols *add);
 uint32_t swap_uint32(uint32_t val);
