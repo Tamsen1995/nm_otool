@@ -55,7 +55,21 @@ void add_ran_offset(t_ran_offset **lst, uint32_t offset, uint32_t strx)
 
 //TODO : FINISH FUNCTION
 
-//void free_offset_lst
+void free_offset_lst(t_ran_offset *lst)
+{
+	t_ran_offset *tmp;
+
+	tmp = lst;
+	while (tmp->next)
+		tmp = tmp->next;
+	while (tmp->prev)
+	{
+		if (tmp->next)
+			free(tmp->next);
+		tmp = tmp->prev;
+	}
+	free(tmp);
+}
 
 /*
 ** handles the archive case
@@ -87,5 +101,4 @@ void go_archive(char *ptr, char *filename)
 	}
 	process_archs(ptr, lst, filename);
 	free_offset_lst(lst);
-	// TODO : Free the t_ran_offset list here
 }
