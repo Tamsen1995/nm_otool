@@ -1,5 +1,6 @@
 #include "../../../includes/nm.h"
 
+
 t_symbols *new_symbol_32(char *strtable, struct nlist list, t_lsection *sec_list)
 {
 	t_symbols *new;
