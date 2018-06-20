@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   det_type.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbui <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/20 13:38:45 by tbui              #+#    #+#             */
+/*   Updated: 2018/06/20 13:38:47 by tbui             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/nm.h"
 
-char type_in_sects(t_lsection *sec_list, uint32_t n_sect)
+char		type_in_sects(t_lsection *sec_list, uint32_t n_sect)
 {
 	t_section *tmp;
-	
+
 	tmp = sec_list->first;
 	while (tmp)
 	{
@@ -23,7 +35,8 @@ char type_in_sects(t_lsection *sec_list, uint32_t n_sect)
 	return ('S');
 }
 
-char determine_type(uint32_t type, uint32_t n_sect, t_lsection *sec_list, int addr)
+char		determine_type(uint32_t type, \
+uint32_t n_sect, t_lsection *sec_list, int addr)
 {
 	char ret;
 
@@ -49,4 +62,3 @@ char determine_type(uint32_t type, uint32_t n_sect, t_lsection *sec_list, int ad
 		ret += 32;
 	return (ret);
 }
-
