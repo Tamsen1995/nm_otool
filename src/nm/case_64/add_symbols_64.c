@@ -30,6 +30,31 @@ struct nlist_64 list, t_lsection *sec_list)
 }
 
 /*
+** Adds a symbol element into the list
+*/
+
+void		add_into_sym_list(t_symbols *tmp, t_symbols *ret, \
+t_symbols **sym_list, t_symbols *add)
+{
+	while (tmp->next)
+	{
+		if (ft_strcmp(tmp->name, add->name) > 0)
+		{
+			ret = add_before(tmp, add);
+			if (ret)
+				(*sym_list) = ret;
+			return ;
+		}
+		tmp = tmp->next;
+	}
+	if (!tmp->next)
+	{
+		tmp->next = add;
+		tmp->next->prev = tmp;
+	}
+}
+
+/*
 ** creates new symbol
 ** determines its type
 ** puts it into the sym_list
@@ -50,21 +75,6 @@ void		add_symbols_64(char *strtable,
 		(*sym_list) = add;
 	else
 	{
-		while (tmp->next)
-		{
-			if (ft_strcmp(tmp->name, add->name) > 0)
-			{
-				ret = add_before(tmp, add);
-				if (ret)
-					(*sym_list) = ret;
-				return ;
-			}
-			tmp = tmp->next;
-		}
-		if (!tmp->next)
-		{
-			tmp->next = add;
-			tmp->next->prev = tmp;
-		}
+		add_into_sym_list(tmp, ret, sym_list, add);
 	}
 }
