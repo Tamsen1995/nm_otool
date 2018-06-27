@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_sections_64.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbui <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/20 14:01:07 by tbui              #+#    #+#             */
+/*   Updated: 2018/06/20 14:01:09 by tbui             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../../includes/nm.h"
 
-void add_seg_64(struct load_command *lc, t_lsection *list)
+void			add_seg_64(struct load_command *lc, t_lsection *list)
 {
-	unsigned int i;
-	struct segment_command_64 *seg;
-	struct section_64 *sec;
+	unsigned int					i;
+	struct segment_command_64		*seg;
+	struct section_64				*sec;
 
 	i = 0;
 	seg = (struct segment_command_64 *)lc;
@@ -17,12 +29,12 @@ void add_seg_64(struct load_command *lc, t_lsection *list)
 	}
 }
 
-t_lsection *get_sections_64(char *ptr)
+t_lsection		*get_sections_64(char *ptr)
 {
-	t_lsection *list;
-	struct mach_header_64 *header;
-	struct load_command *lc;
-	unsigned int i;
+	t_lsection						*list;
+	struct mach_header_64			*header;
+	struct load_command				*lc;
+	unsigned int					i;
 
 	if (!(list = (t_lsection *)malloc(sizeof(t_lsection))))
 		return (NULL);
